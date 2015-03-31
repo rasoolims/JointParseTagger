@@ -52,8 +52,10 @@ public class MultiSentenceParser {
 
     public ParseResult[] parseMergedWordSentences(String[] sentences)  {
         try {
+            System.out.println("entering parseMergedWordSentences "+sentences.length);
             ParseResult[] results = new ParseResult[sentences.length];
 
+            
 
             for (int i = 0; i < sentences.length; i++)
                 pool.submit(new ParserThread(i, sentences[i].split(" "), info));
