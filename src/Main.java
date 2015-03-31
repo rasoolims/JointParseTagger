@@ -29,12 +29,12 @@ public class Main {
         //
         MultiSentenceParser multiSentenceParser=new MultiSentenceParser(numberOfThreads,tagModelPath,parseModelPath);
         
-        String[][] sentences=new String[5][];
+        String[] sentences=new String[5];
         for(int i=0;i<sentences.length;i++){
-            sentences[i]= new String[]{"he", "is", "not", "here", "."};
+            sentences[i]= "he is not here .";
         }
         
-      ParseResult[] results=  multiSentenceParser.parseSentences(sentences);
+      ParseResult[] results=  multiSentenceParser.parseMergedWordSentences(sentences);
       
         for(int i=0;i<results.length;i++)
             System.out.println(results[i].getConllOutput());

@@ -49,6 +49,21 @@ public class MultiSentenceParser {
 
     }
 
+    public ParseResult[] parseMergedWordSentences(String[] sentences) throws Exception {
+        ParseResult[] results = new ParseResult[sentences.length];
+
+        for(int i=0;i<sentences.length;i++)
+            pool.submit(new ParserThread(i,sentences[i].split(" "),info));
+
+        for(int i=0;i<sentences.length;i++){
+            Pair<ParseResult,Integer> pair=pool.take().get();
+            results[pair.second]=pair.first;
+        }
+
+        return results;
+
+    }
+
     public void shutDownLiveThreads() {
         info.turnOff();
         executor.shutdown();
