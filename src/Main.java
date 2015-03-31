@@ -61,7 +61,7 @@ public class Main {
             String[] words = line.trim().split(" ");
 
             // for Yin-Wen
-            ParseResult parseResult=new ParseResult(words,info);
+            ParseResult parseResult=new ParseResult(words,info,numberOfThreads);
             
             // you should backward index by one (i.e. 0 is root, but index 0 is for word 1) head[0] is head of the first word
             // e.g. head[10] = 13 means head of 11th word is 13

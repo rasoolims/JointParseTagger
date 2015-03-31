@@ -28,7 +28,7 @@ public class ParseResult {
     float taggingScore;
     
     
-    public ParseResult(final String[] words, Info info) throws Exception {
+    public ParseResult(final String[] words, Info info, int numOfThreads) throws Exception {
         this.words=words;
         SemiSupervisedPOSTagger.Structures.Sentence sentence =new SemiSupervisedPOSTagger.Structures.Sentence(words,info.posMaps);
         Pair<int[],Float> origTags = info.tagger.tagWithScore(sentence, false);
@@ -36,7 +36,7 @@ public class ParseResult {
         for (int i = 0; i < origTags.first.length; i++)
             origTagsStr[i] = info.posMaps.reversedMap[origTags.first[i]];
         Sentence parsingSentence = info.parserMaps.makeSentence(words, origTagsStr, info.infStruct.options.rootFirst, info.infStruct.options.lowercase);
-        Configuration bestParse = info.parser.parse(parsingSentence, info.infStruct.options.rootFirst, info.infStruct.options.beamWidth, 8);
+        Configuration bestParse = info.parser.parse(parsingSentence, info.infStruct.options.rootFirst, info.infStruct.options.beamWidth, numOfThreads);
 
 
         this.tags=origTagsStr;
@@ -82,5 +82,9 @@ public class ParseResult {
 
     public float getTaggingScore() {
         return taggingScore;
+    }
+
+    public String[] getWords() {
+        return words;
     }
 }
