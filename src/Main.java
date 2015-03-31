@@ -1,24 +1,7 @@
 import JointPosTaggerParser.Info;
+import JointPosTaggerParser.MultiSentenceParser;
 import JointPosTaggerParser.ParseResult;
-import SemiSupervisedPOSTagger.Structures.Pair;
-import YaraParser.Learning.AveragedPerceptron;
-import SemiSupervisedPOSTagger.Tagging.Tagger;
-import YaraParser.Structures.IndexMaps;
-import YaraParser.Structures.InfStruct;
-import YaraParser.Structures.Sentence;
-import YaraParser.TransitionBasedSystem.Configuration.BeamElement;
-import YaraParser.TransitionBasedSystem.Configuration.Configuration;
-import YaraParser.TransitionBasedSystem.Parser.KBeamArcEagerParser;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import  java.io.File;
 
 /**
  * Created by Mohammad Sadegh Rasooli.
@@ -30,21 +13,34 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        if (args.length < 4) {
-            System.out.println("java -jar JointParseTagger.jar [tag_model_file] [parse_model_file] [input_raw_file] [output_parse_file]");
+        if (args.length < 2) {
+            System.out.println("java -jar JointParseTagger.jar [tag_model_file] [parse_model_file] ");
             System.exit(0);
         }
 
-        String tagModelPath = args[0];
-        String parseModelPath = args[1];
-        String inputFile = args[2];
-        String outputFile = args[3];
-        
+        String tagModelPath =(new File(args[0])).getAbsolutePath();
+        String parseModelPath =(new File(args[1])).getAbsolutePath();
+     //   String inputFile = args[2];
+      //  String outputFile = args[3];
+
         int numberOfThreads=8;
 
-        // for Yin-Wen
+        // for Yin-Wen 
+        //
        Info info=new Info(tagModelPath,parseModelPath,numberOfThreads);
-
+        MultiSentenceParser multiSentenceParser=new MultiSentenceParser(numberOfThreads,info);
+        
+        String[][] sentences=new String[5][];
+        for(int i=0;i<sentences.length;i++){
+            sentences[i]= new String[]{"he", "is", "not", "here", "."};
+        }
+        
+      ParseResult[] results=  multiSentenceParser.parseSentences(sentences);
+      
+        for(int i=0;i<results.length;i++)
+            System.out.println(results[i].getConllOutput());
+        
+        /*
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
@@ -74,8 +70,10 @@ public class Main {
         System.out.println(count + "...");
         writer.flush();
         writer.close();
+         */
 
         // for Yin-Wen
         info.turnOff();
+        multiSentenceParser.shutDownLiveThreads();
     }
 }
