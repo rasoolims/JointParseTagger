@@ -63,6 +63,7 @@ public class MultiSentenceParser {
                 results[pair.second] = pair.first;
             }
 
+            System.out.println("results achieved "+results.length);
             return results;
         }catch (Exception ex){
             System.err.println(ex.getMessage()+"\n\n");
