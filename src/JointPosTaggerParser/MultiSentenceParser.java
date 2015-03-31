@@ -24,6 +24,7 @@ public class MultiSentenceParser {
         executor = Executors.newFixedThreadPool(numofThreads);
         pool = new ExecutorCompletionService<Pair<ParseResult,Integer>>(executor);
         this.info=info;
+        System.out.println("loading all models done!");
     }
 
     public MultiSentenceParser(int numofThreads, String tagModelPath, String parseModelPath) throws Exception {
