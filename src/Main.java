@@ -29,9 +29,9 @@ public class Main {
         //
         MultiSentenceParser multiSentenceParser=new MultiSentenceParser(numberOfThreads,tagModelPath,parseModelPath);
         
-        String[] sentences=new String[5];
+        String[] sentences=new String[500];
         for(int i=0;i<sentences.length;i++){
-            sentences[i]= "he is not here .";
+            sentences[i]= "he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here he is not here .";
         }
         
       ParseResult[] results=  multiSentenceParser.parseMergedWordSentences(sentences);

@@ -52,6 +52,7 @@ public class MultiSentenceParser {
 
     public ParseResult[] parseMergedWordSentences(String[] sentences)  {
         try {
+            long start = System.currentTimeMillis(); 
          //   System.out.println("entering parseMergedWordSentences "+sentences.length);
             ParseResult[] results = new ParseResult[sentences.length];
 
@@ -66,6 +67,9 @@ public class MultiSentenceParser {
             }
 
           //  System.out.println("results achieved "+results.length);
+            long end = System.currentTimeMillis();
+            float each = (1.0f * (end - start)) / results.length;
+            System.out.println("speed per sentence (ms) "+each);
             return results;
         }catch (Exception ex){
             System.err.println(ex.getMessage()+"\n\n");
