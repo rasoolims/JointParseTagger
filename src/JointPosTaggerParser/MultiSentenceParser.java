@@ -26,6 +26,13 @@ public class MultiSentenceParser {
         this.info=info;
     }
 
+    public MultiSentenceParser(int numofThreads, String tagModelPath, String parseModelPath) throws Exception {
+        executor = Executors.newFixedThreadPool(numofThreads);
+        pool = new ExecutorCompletionService<Pair<ParseResult,Integer>>(executor);
+        this.info=new Info(tagModelPath,parseModelPath,numofThreads);
+        System.out.println("loading all models done!");
+    }
+
 
     public ParseResult[] parseSentences(String[][] sentences) throws Exception {
         ParseResult[] results = new ParseResult[sentences.length];
@@ -43,6 +50,7 @@ public class MultiSentenceParser {
     }
 
     public void shutDownLiveThreads() {
+        info.turnOff();
         executor.shutdown();
     }
 

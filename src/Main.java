@@ -27,8 +27,7 @@ public class Main {
 
         // for Yin-Wen 
         //
-       Info info=new Info(tagModelPath,parseModelPath,numberOfThreads);
-        MultiSentenceParser multiSentenceParser=new MultiSentenceParser(numberOfThreads,info);
+        MultiSentenceParser multiSentenceParser=new MultiSentenceParser(numberOfThreads,tagModelPath,parseModelPath);
         
         String[][] sentences=new String[5][];
         for(int i=0;i<sentences.length;i++){
@@ -73,7 +72,6 @@ public class Main {
          */
 
         // for Yin-Wen
-        info.turnOff();
         multiSentenceParser.shutDownLiveThreads();
     }
 }
