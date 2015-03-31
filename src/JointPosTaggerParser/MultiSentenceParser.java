@@ -52,7 +52,7 @@ public class MultiSentenceParser {
 
     public ParseResult[] parseMergedWordSentences(String[] sentences)  {
         try {
-            System.out.println("entering parseMergedWordSentences "+sentences.length);
+         //   System.out.println("entering parseMergedWordSentences "+sentences.length);
             ParseResult[] results = new ParseResult[sentences.length];
 
             
@@ -65,7 +65,7 @@ public class MultiSentenceParser {
                 results[pair.second] = pair.first;
             }
 
-            System.out.println("results achieved "+results.length);
+          //  System.out.println("results achieved "+results.length);
             return results;
         }catch (Exception ex){
             System.err.println(ex.getMessage()+"\n\n");
